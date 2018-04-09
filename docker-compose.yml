@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  server:
+    image: drone/drone:alpine
+    deploy:
+      endpoint_mode: dnsrr # Fix for infinitely pending builds
+    volumes:
+      - drone:/var/lib/drone/
+    env_file:
+      - config/server.env
+    environment:
+      - DRONE_SECRET=${DRONE_SECRET}
+      - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
+      - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
+
+  agent:
+    image: drone/agent:alpine
+    command: agent
+    volumes:
+      - //var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - config/agent.env
+    environment:
+      - DRONE_SECRET=${DRONE_SECRET}
+
+  nginx:
+    image: 127.0.0.1:5000/drone-nginx
+    ports:
+      - 80:80
+      - 443:443
+    secrets:
+      - nexus-cert-public
+      - nexus-cert-private
+
+
+volumes:
+  drone:
+
+
+secrets:
+  nexus-cert-public:
+    external: true
+  nexus-cert-private:
+    external: true
