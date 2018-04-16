@@ -13,8 +13,6 @@ services:
       - DRONE_SECRET=${DRONE_SECRET}
       - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
       - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
-      - SR_GITHUB_TOKEN=${SR_GITHUB_TOKEN}
-      - SR_NPM_TOKEN=${SR_NPM_TOKEN}
   agent:
     image: drone/agent:alpine
     command: agent
@@ -24,8 +22,6 @@ services:
       - ../config/agent.env
     environment:
       - DRONE_SECRET=${DRONE_SECRET}
-      - SR_GITHUB_TOKEN=${SR_GITHUB_TOKEN}
-      - SR_NPM_TOKEN=${SR_NPM_TOKEN}
 
 
   nginx:
