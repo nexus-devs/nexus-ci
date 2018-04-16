@@ -11,5 +11,6 @@ if [ ! "$(docker service ls | grep registry)" ]; then
 fi
 
 # Deploy
+make images
 docker stack deploy --compose-file docker/docker-compose.yml ci
 docker service logs ci_agent -f --tail=10
