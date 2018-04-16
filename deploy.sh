@@ -1,4 +1,6 @@
 #!/bin/bash
+docker swarm init
+
 # Create private image registry on our swarm
 if [ ! "$(docker service ls | grep registry)" ]; then
   docker service create -d \
@@ -10,4 +12,4 @@ fi
 
 # Deploy
 docker stack deploy --compose-file docker/docker-compose.yml ci
-docker service logs ci_agent -f
+docker service logs ci_agent -f --tail=10

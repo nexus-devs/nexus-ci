@@ -8,21 +8,25 @@ services:
     volumes:
       - drone:/var/lib/drone/
     env_file:
-      - config/server.env
+      - ../config/server.env
     environment:
       - DRONE_SECRET=${DRONE_SECRET}
       - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
       - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
-
+      - SR_GITHUB_TOKEN=${SR_GITHUB_TOKEN}
+      - SR_NPM_TOKEN=${SR_NPM_TOKEN}
   agent:
     image: drone/agent:alpine
     command: agent
     volumes:
       - //var/run/docker.sock:/var/run/docker.sock
     env_file:
-      - config/agent.env
+      - ../config/agent.env
     environment:
       - DRONE_SECRET=${DRONE_SECRET}
+      - SR_GITHUB_TOKEN=${SR_GITHUB_TOKEN}
+      - SR_NPM_TOKEN=${SR_NPM_TOKEN}
+
 
   nginx:
     image: 127.0.0.1:5000/drone-nginx
