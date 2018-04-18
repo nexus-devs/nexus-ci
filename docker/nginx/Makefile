@@ -1,10 +1,8 @@
-IMAGE = nginx
 REGISTRY = 127.0.0.1:5000
+IMAGE = drone-nginx
 
 all:
 
 image:
 	docker build -t $(REGISTRY)/$(IMAGE) .
-
-publish:
 	docker push $(REGISTRY)/$(IMAGE)
