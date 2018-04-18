@@ -9,10 +9,7 @@ services:
       - drone:/var/lib/drone/
     env_file:
       - ../config/server.env
-    environment:
-      - DRONE_SECRET=${DRONE_SECRET}
-      - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
-      - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
+      - ../config/secrets.env
 
   agent:
     image: drone/agent:alpine
@@ -21,9 +18,7 @@ services:
       - //var/run/docker.sock:/var/run/docker.sock
     env_file:
       - ../config/agent.env
-    environment:
-      - DRONE_SECRET=${DRONE_SECRET}
-
+      - ../config/secrets.env
   nginx:
     image: 127.0.0.1:5000/drone-nginx
     ports:
