@@ -13,6 +13,7 @@ services:
       - DRONE_SECRET=${DRONE_SECRET}
       - DRONE_GITHUB_CLIENT=${DRONE_GITHUB_CLIENT}
       - DRONE_GITHUB_SECRET=${DRONE_GITHUB_SECRET}
+
   agent:
     image: drone/agent:alpine
     command: agent
@@ -22,7 +23,6 @@ services:
       - ../config/agent.env
     environment:
       - DRONE_SECRET=${DRONE_SECRET}
-
 
   nginx:
     image: 127.0.0.1:5000/drone-nginx
