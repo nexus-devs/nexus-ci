@@ -19,6 +19,14 @@ services:
     env_file:
       - ../config/agent.env
       - ../config/secrets.env
+
+  greenkeeper:
+    image: greenkeeperkeeper/reference-instance
+    environment:
+      - PORT=4000
+    env_file:
+      - ../config/secrets.env
+
   nginx:
     image: 127.0.0.1:5000/drone-nginx
     ports:
@@ -27,7 +35,6 @@ services:
     secrets:
       - nexus-cert-public
       - nexus-cert-private
-
 
 volumes:
   drone:
